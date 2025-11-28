@@ -1,11 +1,12 @@
-import pyautogui
 import keyboard
 import time
+
+
 def switch_app():
     keyboard.press_and_release('alt+tab')
     time.sleep(0.3)
 def Skip_song():
-    while keyboard.is_pressed('`ctrl') or keyboard.is_pressed('left'):
+    while keyboard.is_pressed('ctrl') or keyboard.is_pressed('left'):
         time.sleep(0.01)
     switch_app()
     time.sleep(0.3)
