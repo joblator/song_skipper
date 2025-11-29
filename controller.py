@@ -6,9 +6,17 @@ from pynput.keyboard import Controller, Key
 media_keyboard = Controller()
 pygame.init()
 pygame.joystick.init()
-controller = pygame.joystick.Joystick(0)
-controller.init()
+def connect_controller():
+    if pygame.joystick.get_count() == 0:
+        print("returned None")
+        return None
+    print("gello")
+    controller = pygame.joystick.Joystick(0)
+    controller.init()
+    print("Controller connected:", controller.get_name())
+    return controller
 # Make sure a controller is connected
+controller = connect_controller()
 if pygame.joystick.get_count() == 0:
     print("No PS4 controller detected!")
     sys.exit()
@@ -21,7 +29,7 @@ DEBUG = False
 button_last_time = [0] * num_buttons
 DELAY = 0.5  # seconds between repeated prints
 print("press Share to go to previos song")
-print("press Options to skip song")
+print("press Dpad to skip song")
 
 def skip_song():
     if DEBUG:
@@ -46,21 +54,24 @@ def previous_song():
 while True:
     pygame.event.pump()
 
+
     current_time = time.time()
+    if not controller or pygame.joystick.get_count() == 0:
+        controller = connect_controller()
+    else:
+        for btn in range(num_buttons):
+            state = controller.get_button(btn)
 
-    for btn in range(num_buttons):
-        state = controller.get_button(btn)
+            if state:
+                # only print if enough time has passed
+                if current_time - button_last_time[btn] >= DELAY:
+                    print(f"Button {btn} pressed")
+                    button_last_time[btn] = current_time
 
-        if state:
-            # only print if enough time has passed
-            if current_time - button_last_time[btn] >= DELAY:
-                print(f"Button {btn} pressed")
-                button_last_time[btn] = current_time
-
-                # SHARE button = usually 8
-                if btn == 4:
-                    previous_song()
-                if btn == 6:
-                    skip_song()
+                    # SHARE button = usually 8
+                    if btn == 4:
+                        previous_song()
+                    if btn == 15:
+                        skip_song()                 
 
     time.sleep(0.01)
