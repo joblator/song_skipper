@@ -20,7 +20,8 @@ print("Total buttons:", num_buttons)
 DEBUG = False
 button_last_time = [0] * num_buttons
 DELAY = 0.5  # seconds between repeated prints
-
+print("press Share to go to previos song")
+print("press Options to skip song")
 
 def skip_song():
     if DEBUG:
@@ -41,7 +42,6 @@ def previous_song():
     media_keyboard.release(Key.media_previous)
     if DEBUG:
         print("[EXIT] previous_song")
-# --- Anti-spam timing table ---
 
 while True:
     pygame.event.pump()
