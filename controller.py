@@ -32,24 +32,12 @@ print("press Share to go to previos song")
 print("press Dpad to skip song")
 
 def skip_song():
-    if DEBUG:
-        print("[ENTER] skip_song")
-    while keyboard.is_pressed('ctrl') or keyboard.is_pressed('right'):
-        time.sleep(0.01)
     media_keyboard.press(Key.media_next)
     media_keyboard.release(Key.media_next)
-    if DEBUG:
-        print("[EXIT] skip_song")
 
 def previous_song():
-    if DEBUG:
-        print("[ENTER] previous_song")
-    while keyboard.is_pressed('ctrl') or keyboard.is_pressed('left'):
-        time.sleep(0.01)
     media_keyboard.press(Key.media_previous)
     media_keyboard.release(Key.media_previous)
-    if DEBUG:
-        print("[EXIT] previous_song")
 
 while True:
     pygame.event.pump()
