@@ -1,7 +1,6 @@
 import pygame
 import sys
 import time
-import keyboard
 from pynput.keyboard import Controller, Key
 media_keyboard = Controller()
 pygame.init()
